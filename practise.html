@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="guessForm">
+      <label for="userNumber">Enter the Number : </label>
+      <input
+        type="number"
+        min="1"
+        max="100"
+        id="guessNumber"
+        class="userNumber"
+      />
+      <input type="submit" id="submit" />
+    </form>
+    <script>
+      // Prompt the user to play the game
+      const wantToPlay = prompt(
+        "Do You want to Play the Game ? || Write `Y` for Yes and `N` for No"
+      ).toLowerCase();
+
+      if (wantToPlay === "n") {
+        alert("Maybe Some Other Day!");
+        location.reload(); // Refresh the page
+      } else if (wantToPlay === "y") {
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        console.log("The Number to be guessed is " + randomNumber);
+
+        document
+          .getElementById("guessForm")
+          .addEventListener("submit", numberCode);
+
+          let userCount = 1;
+          let userGuess= [];
+        function numberCode(event) {
+          event.preventDefault(); // Prevent form submission
+
+          const userNumber = document.querySelector("#guessNumber");
+          const guessedNumber = parseInt(userNumber.value);
+          console.log("You guessed " + guessedNumber);
+
+          userGuess.push(guessedNumber);
+          
+            if (guessedNumber === randomNumber) {
+              alert("You guessed it Right");
+              location.reload(); // Refresh the page
+            } else {
+              if (guessedNumber > randomNumber) alert("Your Number is too Big");
+              else  alert("Your Number is too Small");
+            }
+            if(userCount > 0){
+                userLastGuess = userGuess[userGuess.length - 1];
+                alert("Your last guessed number was: " + userLastGuess);
+            }
+
+
+            userCount++;
+          if (userCount > 3){
+            alert("Game Over ! You've reached the maximum number of tries.");
+              location.reload(); // Refresh the page
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
